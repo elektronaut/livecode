@@ -1,0 +1,29 @@
+require 'livecode'
+include Livecode
+
+$midi = MIDI::Client.new( "RubyLivecode" )
+$beats, $synth1 = $midi.inst( 0, 1 )
+
+$c = Clock.new( :tempo => 120 )
+
+# play/stop controls
+$c.tempo = 120 # tempo adjustable on the fly
+$c.play
+$c.stop
+
+arp = Scale.new( 57, [0,3,7], 1 ) # arpeggiator, A minor
+syn = Proc.new{ |tick,clock| $synth1.play( arp[tick], clock.tl, 100 ) }
+
+$seq = StepSequencer.new( $c )
+bd = Proc.new{|t,c| $beats.play( 60, c.tl*0.9, 100 ) if $seq['x...x...'] }
+sn = Proc.new{|t,c| $beats.play( 62, c.tl*0.9, 100 ) if $seq['....x...'] }
+hh = Proc.new do |t,c| 
+	$beats.play( 69, c.tl*0.9, 100 ) if $seq['..x...x..x.x..x.'] 
+	$beats.play( 70, c.tl*0.9, 100 ) if $seq['x.......'] # polyrythms are easy
+end
+
+# Playing different "parts"
+$c.set( syn,bd )       # synth + bass drum
+$c.set( syn )          # only synth
+$c.set( syn,bd,sn,hh ) # everything
+

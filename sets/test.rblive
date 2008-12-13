@@ -1,0 +1,55 @@
+require 'livecode'
+include Livecode
+
+load 'livecode/step_sequencer.rb'
+
+# == MIDI Client ==
+$midi = MIDI::Client.new( "RubyLivecode" )
+$beats, $synth1 = $midi.add_instrument( 0, 1 )
+
+$midi.close
+
+
+# == Clock ==
+$clock ||= Clock.new( :tempo => 120, :subdiv => 16 )
+$clock.debug = $clock.debug ? false : true # Toggle debug flag
+$clock.tempo = 120
+$clock.subdiv = 16
+$clock.start
+$clock.restart
+$clock.pause
+$clock.stop
+Clock.stop_all
+
+# == Beats ==
+class BasicBeats
+	BD = 60; SN = 62; HH = 69
+	def tick( tick, clock )
+		@seq ||= StepSequencer.new( clock, 16 )
+		tl = clock.tick_length * 0.9
+		$beats.play( BD, tl, 100 ) if @seq.at('x...x...x...x...')
+		$beats.play( SN, tl, 100 ) if @seq.at('....x.......x...')
+		$beats.play( HH, tl, 100 ) if @seq.at('xxxxxxxxxxxxxxxx')
+	end
+end
+
+beats = BasicBeats.new
+$clock.attach( beats )
+
+$clock.remove( beats )
+beats = BasicBeats.new
+
+# == Synth ==
+class Synth1
+	def tick( tick, clock )
+		tl = clock.tick_length * 0.9
+		notes = [40,40,42,43,40,40,42,47]
+		oct = [0,12,24]
+		note = notes[tick/4%8] + oct[tick/4%3]
+		$synth1.play( note, tl, 100 )
+	end
+end
+
+synth1 = Synth1.new
+$clock.attach( synth1 )
+$clock.remove( synth1 )

@@ -1,0 +1,36 @@
+(require 'livecode') ? include(Livecode) : reload!
+
+$c = Clock.new( :tempo => 120 )
+$c.restart
+$c.stop
+
+$c.test
+
+
+$m = MIDI::Client.new( "RubyLivecode" )
+$beats, $synth = $m.instr( 0, 1 )
+
+$seq = StepSequencer.new( $c )
+
+$c.r.bd = Proc.new { |c| $beats.play( 60, c.tl*0.5, 100 ) if $seq['x...'] }
+$c.r.sd = Proc.new { |c| $beats.play( 62, c.tl*0.5, 100 ) if $seq['....x...'] }
+
+$c.r.hh = Proc.new { |c| $beats.play( 69, c.tl*0.5, 100 ) if $seq['
+	x... x.x.
+	x.x. x...
+	.x.. x...
+	x.xx xxxx
+'] }
+
+
+$c.r.test = nil
+
+
+
+
+$c.r.keys
+
+$c.r.play_all
+
+( 0.1 == 0 ) ? true : false
+
