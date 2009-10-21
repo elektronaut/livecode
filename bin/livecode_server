@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'daemons'
+require File.join(File.dirname(__FILE__), '../lib/livecode_server')
+
+LivecodeServer.make_dir!
+
+daemon_options = {
+	:dir_mode => :normal,
+	:dir      => LivecodeServer::CONFIG_DIR
+}
+
+group = Daemons.run_proc(File.basename($0), daemon_options) do
+	server = LivecodeServer::Daemon.new
+	unless LivecodeServer.running?
+		DRb.start_service nil, server
+		LivecodeServer.register_uri DRb.uri
+		puts "Started Livecode server on #{DRb.uri}"
+		puts "Press ^C to exit"
+		trap_proc = proc{ 
+			puts "Exiting..."
+			LivecodeServer.register_shutdown
+			exit 
+		}
+		%w{SIGINT TERM}.each{|s| trap s, trap_proc}
+		DRb.thread.join
+	else
+		puts "Livecode server appears to be running on #{LivecodeServer.uri}. Please check your processes."
+	end
+end
+
