@@ -6,7 +6,7 @@ require 'etc'
 end
 
 module LivecodeServer
-	CONFIG_DIR = File.join(Etc.getpwuid.dir, '.livecode')
+	CONFIG_DIR = File.join(Etc.getpwuid.dir, '.config/livecode')
 	URI_FILE   = File.join(CONFIG_DIR, 'livecode_server.uri')
 	
 	class << self
