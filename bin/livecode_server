@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib'
+
 require 'rubygems'
 require 'daemons'
-require File.join(File.dirname(__FILE__), '../lib/livecode_server')
+require 'livecode_server'
 
 LivecodeServer.make_dir!
 

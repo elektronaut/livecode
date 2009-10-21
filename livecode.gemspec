@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.date = %q{2009-10-21}
   s.default_executable = %q{livecode_server}
   s.description = %q{A toolkit for livecoding using Ruby and TextMate on OSX}
-  s.email = %q{inge@elektronaut.no.no}
+  s.email = %q{inge@elektronaut.no}
   s.executables = ["livecode_server"]
   s.extra_rdoc_files = [
     "LICENSE",
@@ -25,7 +25,13 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "bin/livecode_server",
      "lib/livecode.rb",
+     "lib/livecode_server.rb",
+     "lib/livecode_server/client.rb",
+     "lib/livecode_server/daemon.rb",
+     "lib/livecode_server/scope.rb",
+     "livecode.gemspec",
      "test/helper.rb",
      "test/test_livecode.rb"
   ]
@@ -44,9 +50,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<daemons>, [">= 0"])
     else
+      s.add_dependency(%q<daemons>, [">= 0"])
     end
   else
+    s.add_dependency(%q<daemons>, [">= 0"])
   end
 end
 

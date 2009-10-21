@@ -10,6 +10,7 @@ begin
 		gem.email       = "inge@elektronaut.no"
 		gem.homepage    = "http://github.com/elektronaut/livecode"
 		gem.authors     = ["Inge Jørgensen"]
+		gem.add_dependency "daemons"
 		#gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
 		# gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
 	end
