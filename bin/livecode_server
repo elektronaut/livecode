@@ -6,6 +6,23 @@ require 'rubygems'
 require 'daemons'
 require 'livecode_server'
 
+class Daemons::Controller
+	def print_usage
+		puts "Usage: #{@app_name} <command> <options> -- <application options>"
+		puts
+		puts "Server control commands:"
+		puts "  start         Start the server"
+		puts "  stop          Stop the server"
+		puts "  restart       Stop and restart the server"
+		puts "  run           Start the server and stay on top"
+		puts "  status        Show server status"
+		#puts "  zap           set the application to a stopped state"
+		puts
+		puts "* and where <options> may contain several of the following:"
+		puts @optparse.usage
+	end
+end
+
 LivecodeServer.make_dir!
 
 daemon_options = {
@@ -14,8 +31,9 @@ daemon_options = {
 }
 
 group = Daemons.run_proc(File.basename($0), daemon_options) do
-	server = LivecodeServer::Daemon.new
+	LivecodeServer.make_dir!
 	unless LivecodeServer.running?
+		server = LivecodeServer::Daemon.new
 		DRb.start_service nil, server
 		LivecodeServer.register_uri DRb.uri
 		puts "Started Livecode server on #{DRb.uri}"
