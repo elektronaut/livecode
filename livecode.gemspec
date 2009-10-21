@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
      "lib/livecode_server/scope.rb",
      "livecode.gemspec",
      "test/helper.rb",
-     "test/test_livecode.rb"
+     "test/test_livecode_server.rb"
   ]
   s.homepage = %q{http://github.com/elektronaut/livecode}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.summary = %q{OSX livecoding toolkit}
   s.test_files = [
     "test/helper.rb",
-     "test/test_livecode.rb"
+     "test/test_livecode_server.rb"
   ]
 
   if s.respond_to? :specification_version then

@@ -10,8 +10,8 @@ module LivecodeServer
 				else
 					raise ConnectionError, "Server not running", caller
 				end
-				@server
 			end
+			@server
 		end
 
 		def run(code)
