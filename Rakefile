@@ -10,7 +10,7 @@ begin
     gem.email = "inge@manualdesign.no"
     gem.homepage = "http://github.com/elektronaut/livecode"
     gem.authors = ["Inge Jørgensen"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    #gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
