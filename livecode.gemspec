@@ -5,15 +5,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{livecode}
-  s.version = "0.0.2"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Inge J\303\270rgensen"]
-  s.date = %q{2009-10-21}
-  s.default_executable = %q{livecode_server}
+  s.date = %q{2009-10-22}
+  s.default_executable = %q{livecode}
   s.description = %q{A toolkit for livecoding using Ruby and TextMate on OSX}
   s.email = %q{inge@elektronaut.no}
-  s.executables = ["livecode_server"]
+  s.executables = ["livecode"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -25,7 +25,14 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "bin/livecode_server",
+     "bin/livecode",
+     "extras/textmate/Ruby Livecode.tmbundle/Commands/Execute Document.tmCommand",
+     "extras/textmate/Ruby Livecode.tmbundle/Commands/Execute Selection:Line.tmCommand",
+     "extras/textmate/Ruby Livecode.tmbundle/Commands/Execute Selection:Scope.tmCommand",
+     "extras/textmate/Ruby Livecode.tmbundle/Commands/Start.tmCommand",
+     "extras/textmate/Ruby Livecode.tmbundle/Commands/Stop.tmCommand",
+     "extras/textmate/Ruby Livecode.tmbundle/Syntaxes/Ruby Livecode.tmLanguage",
+     "extras/textmate/Ruby Livecode.tmbundle/info.plist",
      "lib/livecode.rb",
      "lib/livecode_server.rb",
      "lib/livecode_server/client.rb",
