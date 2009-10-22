@@ -41,7 +41,7 @@ when 'update_textmate'
 	if File.exists?("/Library/Application Support/TextMate/Bundles/Ruby Livecode.tmbundle")
 		`sudo rm /Library/Application\\ Support/TextMate/Bundles/Ruby\\ Livecode.tmbundle`
 	end
-	bundle_path = Pathname.new(File.join(File.dirname(File.expand_path($0)), '../extras/textmate/Ruby Livecode.tmbundle')).realpath.to_s
+	bundle_path = Pathname.new(File.join(Gem.cache.find_name('livecode').map{|g| g.full_gem_path}.sort.last, 'extras/textmate/Ruby Livecode.tmbundle')).realpath.to_s
 	escaped_bundle_path = bundle_path.gsub(/\s/, '\ ')
 	`sudo ln -s #{escaped_bundle_path} /Library/Application\\ Support/TextMate/Bundles/Ruby\\ Livecode.tmbundle`
 	`osascript -e 'tell app "TextMate" to reload bundles'`

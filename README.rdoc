@@ -1,27 +1,35 @@
-= Livecode
-
-Livecoding toolkit for Ruby. Primarily intended for Textmate on OSX, but the server should work on any *nix variant.
+= Livecode: Ruby toolkit for TextMate/OSX
 
 More to come.
 
 == Installation
 
-First, install the gem:
-
  gem install livecode
+
+The TextMate bundle should be updated every time you install a new version:
+
+ livecode update_textmate
 
 == Usage
 
-Once you're set up, fire up the server:
+Once you're set up, you can fire up the server in a terminal window:
 
  livecode run
 
-== Connecting to the Livecode server
+(Alternatively, you could press CMD+B in TextMate to launch it as a background daemon.)
+
+Open a new TextMate document and set the language to "Ruby Livecode". You can
+now press CMD+E to run either the selected text or the current line on 
+the server. Hack away! 
+
+== Making your own client
+
+..is fairly simple:
 
  require 'livecode_server'
  client = LivecodeServer::Client.new
 
-You can now send code to the server:
+You can now send code to the server as strings:
 
  client.run 'message = "Hello world!"'
  client.run 'puts message'
