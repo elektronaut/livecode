@@ -14,7 +14,7 @@ First, install the gem:
 
 Once you're set up, fire up the server:
 
- livecode_server run
+ livecode run
 
 == Connecting to the Livecode server
 

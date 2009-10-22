@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'pathname'
+require 'rubygems'
+require 'daemons'
+require 'livecode_server'
+
+class Daemons::Controller
+	def print_usage
+		puts "Usage: #{@app_name} <command> <options> -- <application options>"
+		puts
+		puts "Server control commands:"
+		puts "  start             Start the server"
+		puts "  stop              Stop the server"
+		puts "  restart           Stop and restart the server"
+		puts "  run               Start the server and stay on top"
+		puts "  status            Show server status"
+		#puts "  zap           set the application to a stopped state"
+		puts
+		puts "Tools:"
+		puts "  update_textmate   Install or update the TextMate bundle"
+		puts
+		puts "* and where <options> may contain several of the following:"
+		puts @optparse.usage
+	end
+end
+
+LivecodeServer.make_dir!
+
+daemon_options = {
+	:dir_mode => :normal,
+	:dir      => LivecodeServer::CONFIG_DIR
+}
+
+case ARGV.first
+when 'update_textmate'
+	puts "Updating Textmate bundle.."
+	`sudo mkdir -p /Library/Application\\ Support/TextMate/Bundles`
+	if File.exists?("/Library/Application Support/TextMate/Bundles/Ruby Livecode.tmbundle")
+		`sudo rm /Library/Application\\ Support/TextMate/Bundles/Ruby\\ Livecode.tmbundle`
+	end
+	bundle_path = Pathname.new(File.join(File.dirname(File.expand_path($0)), '../extras/textmate/Ruby Livecode.tmbundle')).realpath.to_s
+	escaped_bundle_path = bundle_path.gsub(/\s/, '\ ')
+	`sudo ln -s #{escaped_bundle_path} /Library/Application\\ Support/TextMate/Bundles/Ruby\\ Livecode.tmbundle`
+	`osascript -e 'tell app "TextMate" to reload bundles'`
+else
+	group = Daemons.run_proc(File.basename($0), daemon_options) do
+		LivecodeServer.make_dir!
+		unless LivecodeServer.running?
+			server = LivecodeServer::Daemon.new
+			DRb.start_service nil, server
+			LivecodeServer.register_uri DRb.uri
+			puts "Started Livecode server on #{DRb.uri}"
+			puts "Press ^C to exit"
+			trap_proc = proc{ 
+				puts "Exiting..."
+				LivecodeServer.register_shutdown
+				exit 
+			}
+			%w{SIGINT TERM}.each{|s| trap s, trap_proc}
+			DRb.thread.join
+		else
+			puts "Livecode server appears to be running on #{LivecodeServer.uri}. Please check your processes."
+		end
+	end
+end
