@@ -7,6 +7,10 @@ module LivecodeServer
 			@__scope_binding ||= Proc.new {}
 		end
 
+		def include(mod)
+			self.class.send(:include, mod)
+		end
+
 		def puts(string)
 			@__server.output string
 		end
