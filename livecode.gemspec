@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{livecode}
-  s.version = "0.0.7"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Inge J\303\270rgensen"]
-  s.date = %q{2009-10-22}
+  s.date = %q{2009-10-23}
   s.default_executable = %q{livecode}
   s.description = %q{A toolkit for livecoding using Ruby and TextMate on OSX}
   s.email = %q{inge@elektronaut.no}
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
      "lib/livecode.rb",
      "lib/livecode_server.rb",
      "lib/livecode_server/client.rb",
+     "lib/livecode_server/command.rb",
      "lib/livecode_server/daemon.rb",
      "lib/livecode_server/scope.rb",
      "livecode.gemspec",
