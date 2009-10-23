@@ -22,6 +22,16 @@ Open a new TextMate document and set the language to "Ruby Livecode". You can
 now press CMD+E to run either the selected text or the current line on 
 the server. Hack away! 
 
+== Multiplayer livecoding
+
+Instead of running your own server, you can connect to a remote session by running:
+
+ livecode connect drb://somewhere.else:123456
+
+When you're done, disconnect with:
+
+ livecode disconnect
+
 == Making your own client
 
 ..is fairly simple:
