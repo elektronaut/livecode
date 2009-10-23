@@ -18,6 +18,8 @@ rescue LivecodeServer::ConnectionError =&gt; e
 	puts "Livecode server not running!\n\n"
 	puts '- Press ⌘B to start in daemon mode'
 	puts '- Run in Terminal with "livecode run"'
+rescue DRb::DRbBadURI =&gt; e
+	puts "Error! Can't connect to remote server."
 rescue Exception =&gt; e
 	puts "Error!"
 	puts "  #{e.class}: #{e}"

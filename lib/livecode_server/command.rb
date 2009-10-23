@@ -218,11 +218,11 @@ module LivecodeServer
 							print "\nReplace? [y/n] "
 						end
 					else
-						puts "Existing bundle found, are you sure you want to replace it? [y/n] "
+						print "Existing bundle found, are you sure you want to replace it? [y/n] "
 					end
 					if update_bundle
 						if STDIN.readline.chomp =~ /^y/i
-							`sudo rm #{escaped_target_path}`
+							`sudo rm -rf #{escaped_target_path}`
 						else
 							update_bundle = false
 						end
