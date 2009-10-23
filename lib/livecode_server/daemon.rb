@@ -1,4 +1,6 @@
 module LivecodeServer
+
+	# LivecodeServer daemon
 	class Daemon
 		attr_reader :scope
 
