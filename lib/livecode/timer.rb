@@ -1,16 +1,20 @@
 module Livecode
 
+	# = Timer
+	#
 	# Timer lets you loop a block at a certain interval.
 	#
-	# Examples:
-	#
-	#  timer = Timer(100) {puts "I'm executed every 100ms!"}
+	#  timer = Timer.new(100) {puts "I'm executed every 100ms!"}
 	#  timer.stop       # Stops the execution
 	#  timer.start      # Starts the timer again
 	#  timer.time = 200 # Reschedules the timer
     #
+	# Proc objects are also supported:
+	#
 	#  timer_proc = proc{puts "I'm a proc"}
-	#  timer2 = Timer(100, timer_proc)
+	#  timer2 = Timer.new(100, timer_proc)
+	#
+	# Timer will try to compensate for the run time of your code in order to stay in sync.
 
 	class Timer
 		attr_accessor :time, :proc
@@ -28,7 +32,10 @@ module Livecode
 		
 		# Call the block
 		def call
-			@proc.call if @proc
+			Silenceable.apply(@proc) if @proc
+			if @proc && !@proc.silenced?
+				@proc.call
+			end
 		end
 		
 		# Start the timer
@@ -56,6 +63,6 @@ module Livecode
 		end
 		alias :clear :stop
 		alias :end :stop
-		
 	end
+	
 end

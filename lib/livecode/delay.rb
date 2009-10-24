@@ -1,12 +1,12 @@
 module Livecode
 
+	# = Delay
+	#
 	# Delay lets you schedule a block for later.
 	#
-	# Examples:
-	#
-	#  Delay(1000){puts "One second later"}
+	#  Delay.new(1000){puts "One second later"}
 	#  later = proc{puts "I am a proc"}
-	#  Delay(500, later)
+	#  Delay.new(500, later)
 
 	class Delay
 		attr_accessor :time, :proc
@@ -19,9 +19,11 @@ module Livecode
 			elsif block_given?
 				@proc = block
 			end
-			if @proc
+			Silenceable.apply(@proc) if @proc
+			if @proc && !@proc.silenced?
 				@thread = Thread.new do
 					sleep @time.to_f / 1000
+					@proc.call
 				end
 			end
 		end

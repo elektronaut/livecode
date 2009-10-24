@@ -1,5 +1,7 @@
 require 'pathname'
 
+# = The Livecode library
+#
 # To get started, require and include Livecode:
 # 
 #  require 'livecode'
@@ -9,7 +11,6 @@ require 'pathname'
 
 module Livecode
 	LIBRARY_PATH = Pathname.new(File.join(File.dirname(__FILE__))).realpath.to_s
-	
 	unless self.const_defined?('Loader')
 		$:.unshift LIBRARY_PATH
 	end
@@ -23,10 +24,12 @@ self.send(:include, Livecode::Extensions::Main)
 # These should all be safe to load multiple times
 %w{ 
 	clock
+	clock_recipients
 	delay
 	extensions/numeric
 	extensions/object
 	extensions/string
+	silenceable
 	timer
 }.each{|l| live_require "livecode/#{l}"}
 
@@ -35,6 +38,12 @@ Numeric.send(:include, Livecode::Extensions::Numeric)
 Object.send(:include, Livecode::Extensions::Object)
 String.send(:include, Livecode::Extensions::String)
  
-class NilClass; def chance?; false; end; alias :c? :chance?; end
-class FalseClass; def chance?; false; end; alias :c? :chance?; end
-class TrueClass; def chance?; true; end; alias :c? :chance?; end
+class NilClass #:nodoc:
+	def chance?; false; end; alias :c? :chance?
+end
+class FalseClass #:nodoc:
+	def chance?; false; end; alias :c? :chance?
+end
+class TrueClass #:nodoc:
+	def chance?; true; end; alias :c? :chance?
+end
