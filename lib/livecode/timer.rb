@@ -15,8 +15,28 @@ module Livecode
 	#  timer2 = Timer.new(100, timer_proc)
 	#
 	# Timer will try to compensate for the run time of your code in order to stay in sync.
+	# If you lose track of your variables, you can use <tt>Timer.stop_all</tt> to stop
+	# all timers.
 
 	class Timer
+		
+		class << self
+			# Register a new timer
+			def register(timer)
+				timers << timer
+			end
+
+			# Returns all timers.
+			def timers
+				@@timers ||= []
+			end
+			
+			# Stop all timers.
+			def stop_all
+				timers.each{|timer| timer.stop}
+			end
+		end
+		
 		attr_accessor :time, :proc
 
 		def initialize(time, proc=nil, &block)
@@ -27,6 +47,7 @@ module Livecode
 				@proc = block
 			end
 			@tread = nil
+			Timer.register(self)
 			start
 		end
 		
