@@ -45,13 +45,13 @@ module Livecode
 	# recipient must have a unique name, and there's a few ways to attach them.
 	# The following examples all do the same:
 	#
-	#   clock.recipients.add(:hihat, proc{|clock| hihat.play})
-	#   clock.recipients[:hihat] = proc{|clock| hihat.play})
-	#   clock.recipients.hihat = proc{|clock| hihat.play}
-	#   clock.recipients.hihat{|clock| hihat.play}
-	#   clock[:hihat] = proc{|clock| hihat.play}
-	#   clock.hihat = proc{|clock| hihat.play}
-	#   clock.hihat{|clock| hihat.play}
+	#  clock.recipients.add(:hihat, proc{|clock| hihat.play})
+	#  clock.recipients[:hihat] = proc{|clock| hihat.play})
+	#  clock.recipients.hihat = proc{|clock| hihat.play}
+	#  clock.recipients.hihat{|clock| hihat.play}
+	#  clock[:hihat] = proc{|clock| hihat.play}
+	#  clock.hihat = proc{|clock| hihat.play}
+	#  clock.hihat{|clock| hihat.play}
 	#
 	# To remove a recipient, simply unset it:
 	#
@@ -66,7 +66,10 @@ module Livecode
 	# Remember: The callbacks are executed sequentially. If your callback takes
 	# more than a split second, you should wrap the code in it's own thread to
 	# allow for parallel processing.
-
+	#
+	# Clock will also try to compensate for the run time of your code in 
+	# order to stay in sync.
+	
 	class Clock
 		class << self
 			# Register a new clock.

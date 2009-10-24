@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{livecode}
-  s.version = "0.0.8"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Inge J\303\270rgensen"]
-  s.date = %q{2009-10-23}
+  s.date = %q{2009-10-24}
   s.default_executable = %q{livecode}
   s.description = %q{A toolkit for livecoding using Ruby and TextMate on OSX}
   s.email = %q{inge@elektronaut.no}
@@ -34,6 +34,16 @@ Gem::Specification.new do |s|
      "extras/textmate/Ruby Livecode.tmbundle/Syntaxes/Ruby Livecode.tmLanguage",
      "extras/textmate/Ruby Livecode.tmbundle/info.plist",
      "lib/livecode.rb",
+     "lib/livecode/clock.rb",
+     "lib/livecode/clock_recipients.rb",
+     "lib/livecode/delay.rb",
+     "lib/livecode/extensions/main.rb",
+     "lib/livecode/extensions/numeric.rb",
+     "lib/livecode/extensions/object.rb",
+     "lib/livecode/extensions/string.rb",
+     "lib/livecode/loader.rb",
+     "lib/livecode/silenceable.rb",
+     "lib/livecode/timer.rb",
      "lib/livecode_server.rb",
      "lib/livecode_server/client.rb",
      "lib/livecode_server/command.rb",
