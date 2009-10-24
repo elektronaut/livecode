@@ -1,6 +1,9 @@
 module Livecode
 
-	# Silenceable lets you mute procs and blocks when used by Timer and Clock.
+	# = Silenceable
+	#
+	# Silenceable allows you to mute procs passed to Clock and Timer.
+	
 	module Silenceable
 		class << self
 			def apply(obj)
@@ -13,7 +16,17 @@ module Livecode
 			end
 		end
 		attr_accessor :silenced
-		@silenced = false
-		def silenced?; @silenced ? true : false; end
+		def silenced
+			@silenced ||= false
+		end
+		def silenced?
+			silenced ? true : false; 
+		end
+		def mute
+			@silenced = true
+		end
+		def unmute
+			@silenced = false
+		end
 	end
 end

@@ -1,5 +1,7 @@
 module Livecode
  
+	# = Loader
+	# 
 	# Handles (re)loading of library files, which is mostly useful for development.
 	
 	class Loader

@@ -1,6 +1,8 @@
 module Livecode
 
-	# Recipients hash for the clock, see Clock for documentation.
+	# = ClockRecipients
+	#
+	# ClockRecipients is used internally by Clock to handle it's recipients.
 
 	class ClockRecipients
 		include Enumerable
