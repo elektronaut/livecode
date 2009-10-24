@@ -67,9 +67,9 @@ module Livecode
 				next_time = Time.now
 				while true
 					timer.call
-					next_time += (timer.time.to_f / 1000)
+					next_time += timer.time.to_f
 					sleep_time = next_time - Time.now
-					sleep(sleep_time) if sleep_time > 0
+					wait(sleep_time) if sleep_time > 0
 				end
 			end
 		end

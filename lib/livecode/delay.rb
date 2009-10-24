@@ -22,7 +22,7 @@ module Livecode
 			Silenceable.apply(@proc) if @proc
 			if @proc && !@proc.silenced?
 				@thread = Thread.new do
-					sleep @time.to_f / 1000
+					wait @time.to_f
 					@proc.call
 				end
 			end

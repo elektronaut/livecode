@@ -47,7 +47,7 @@ module Livecode
 				class NoteOff         < Struct.new(:channel, :pitch, :velocity); end;
 				class KeyPressure     < Struct.new(:channel, :pitch, :pressure); end;
 				class ProgramChange   < Struct.new(:channel, :preset);           end; 
-				class ChannelPressure < Struct.new(:channel, :pressure);       end; 
+				class ChannelPressure < Struct.new(:channel, :pressure);         end; 
 				class Unknown         < Struct.new(:data);                       end;
 			end
 

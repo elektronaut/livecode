@@ -109,8 +109,8 @@ module Livecode
 
 			# Length of a single tick (in seconds).
 			def tick_length
-				tl = (1/(@tempo.to_f/60))/@resolution
-				tl = 0.00000001 if tl <= 0
+				tl = ((1/(@tempo.to_f/60))/@resolution) * 1000
+				tl = 0.00001 if tl <= 0
 				tl
 			end
 			alias :tl :tick_length
@@ -184,7 +184,7 @@ module Livecode
 						clock.tick!
 						next_time += tick_length
 						sleep_time = next_time - Time.now
-						sleep(sleep_time) if sleep_time > 0
+						wait(sleep_time) if sleep_time > 0
 					end
 				end
 			end

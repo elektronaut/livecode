@@ -25,10 +25,16 @@ module Livecode
 
 				def start
 					stop
+					client = self
 					@thread = Thread.new do
 						CoreMIDI::Input.register(@name, @port_name, @source_name) do |packet|
+							client.receive_packet(packet)
 						end
 					end
+				end
+				
+				def receive_packet(packet)
+					# Do stuff with packet?
 				end
 				
 			protected
