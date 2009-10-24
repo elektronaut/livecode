@@ -13,7 +13,7 @@ module Livecode
 	# Resolution is the number of ticks per beat. The default 
 	# is 4, which is the equivalent of 16th notes.
 	#
-	#  clock = Clock.new(:tempo => 120, :resolution => 16)
+	#  clock = Clock.new(:tempo => 120, :resolution => 4)
 	#
 	# == Control
 	#
