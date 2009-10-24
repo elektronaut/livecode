@@ -4,7 +4,6 @@ module Livecode
 			# Register a new clock
 			def register(clock)
 				clocks << clock
-				puts "New clock registered: #{clock.inspect}"
 			end
 			
 			# All clocks
@@ -24,7 +23,7 @@ module Livecode
 		def initialize(options={})
 			@tempo   = options[:tempo]  || 120
 			@subdiv  = options[:subdiv] || 16
-			@tick    = 0
+			@tick    = -1
 			@thread  = nil
 			@running = false
 			#@recipients = ClockRecipients.new
@@ -53,7 +52,7 @@ module Livecode
 			# Stop the clock.
 			def stop
 				stop_thread
-				@tick = 0
+				@tick = -1
 				@running = false
 				self
 			end
@@ -66,13 +65,18 @@ module Livecode
 			
 			# Restart the clock.
 			def restart
-				@tick = 0
+				@tick = -1
 				start
 			end
 			
 			# Returns true if the clock is running.
 			def running?
 				@running ? true : false
+			end
+			
+			def tick!
+				@tick += 1
+				# Do stuff
 			end
 			
 		protected
@@ -87,12 +91,14 @@ module Livecode
 			
 			# Start the clock thread.
 			def start_thread
+				clock = self
 				@thread ||= Thread.new do
 					next_time = Time.now
 					while @running
+						clock.tick!
 						next_time += tick_length
-						sleep(next_time - Time.now)
-						@tick += 1
+						sleep_time = next_time - Time.now
+						sleep(sleep_time) if sleep_time > 0
 					end
 				end
 			end

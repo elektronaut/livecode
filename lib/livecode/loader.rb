@@ -1,6 +1,6 @@
 module Livecode
  
-	# Loader handles (re)loading of library files, which is mostly useful for development.
+	# Handles (re)loading of library files, which is mostly useful for development.
 	
 	class Loader
 		attr_accessor :reloadable_files

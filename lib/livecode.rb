@@ -1,7 +1,15 @@
+require 'pathname'
+
+# To get started, require and include Livecode:
+# 
+#  require 'livecode'
+#  include Livecode
+#
+# For your main loop, have a look at Timer, Delay or the more sophisticated Clock class.
+
 module Livecode
 	LIBRARY_PATH = Pathname.new(File.join(File.dirname(__FILE__))).realpath.to_s
 	
-	# Bootstrap loader
 	unless self.const_defined?('Loader')
 		$:.unshift LIBRARY_PATH
 	end
@@ -15,9 +23,11 @@ self.send(:include, Livecode::Extensions::Main)
 # These should all be safe to load multiple times
 %w{ 
 	clock
+	delay
 	extensions/numeric
 	extensions/object
 	extensions/string
+	timer
 }.each{|l| live_require "livecode/#{l}"}
 
 # Apply extensions
