@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
      "lib/livecode/extensions/string.rb",
      "lib/livecode/loader.rb",
      "lib/livecode/midi.rb",
+     "lib/livecode/midi/client.rb",
      "lib/livecode/midi/coremidi.rb",
      "lib/livecode/silenceable.rb",
      "lib/livecode/timer.rb",
