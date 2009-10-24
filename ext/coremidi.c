@@ -1,4 +1,5 @@
 /*
+ *  Based on rbcoremidi
  *  Copyright 2008 Markus Prinz
  *  Released unter an MIT licence
  *
@@ -195,6 +196,14 @@ extern OSStatus MIDISourceCreate(
     MIDIClientRef client, 
     CFStringRef name, 
     MIDIEndpointRef *outSrc );
+
+
+extern OSStatus MIDIDestinationCreate(
+    MIDIClientRef client, 
+    CFStringRef name, 
+    MIDIReadProc readProc, 
+    void *refCon, 
+    MIDIEndpointRef *outDest );
 */
 
 // Create a new source endpoint
@@ -222,6 +231,33 @@ static VALUE t_create_source(VALUE self, VALUE client_instance, VALUE source_nam
     endpoint_struct->endpoint = source;
     
     return source_instance;
+}
+
+// Create a new destination endpoint
+static VALUE t_create_destination(VALUE self, VALUE client_instance, VALUE destination_name)
+{
+    MIDIEndpointRef destination;
+    
+    RbMIDIClient* client;
+    Data_Get_Struct(client_instance, RbMIDIClient, client);
+    
+    CFStringRef destination_str = CFStringCreateWithCString(kCFAllocatorDefault, RSTRING(destination_name)->ptr, kCFStringEncodingASCII);
+
+    MIDIDestinationCreate(client->client, destination_str, RbMIDIReadProc, NULL, &destination);
+
+    VALUE destination_instance = rb_class_new_instance(0, 0, cEndpoint);
+    if( destination_instance == Qnil )
+    {
+        free_objects();
+        rb_fatal("Couldn't create an instance of Endpoint!");
+    }
+    
+    RbEndpoint* endpoint_struct;
+    Data_Get_Struct(destination_instance, RbEndpoint, endpoint_struct);
+    
+    endpoint_struct->endpoint = destination;
+    
+    return destination_instance;
 }
 
 // Create a new Output Port and saves the Ruby Callback proc.
@@ -521,6 +557,7 @@ void Init_coremidi()
 	mCoreMIDIAPI = rb_define_module_under(mCoreMIDI, "API");
     
 	rb_define_singleton_method(mCoreMIDIAPI, "create_source", t_create_source, 2);
+	rb_define_singleton_method(mCoreMIDIAPI, "create_destination", t_create_destination, 2);
 	rb_define_singleton_method(mCoreMIDIAPI, "create_input_port", t_create_input_port, 2);
 	rb_define_singleton_method(mCoreMIDIAPI, "create_output_port", t_create_output_port, 2);
 	rb_define_singleton_method(mCoreMIDIAPI, "create_client", t_create_client, 1);

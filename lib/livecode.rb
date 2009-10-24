@@ -10,7 +10,9 @@ require 'pathname'
 # For your main loop, have a look at Timer, Delay or the more sophisticated Clock class.
 
 module Livecode
-	LIBRARY_PATH = Pathname.new(File.join(File.dirname(__FILE__))).realpath.to_s
+	unless self.const_defined?('LIBRARY_PATH')
+		LIBRARY_PATH = Pathname.new(File.join(File.dirname(__FILE__))).realpath.to_s
+	end
 	unless self.const_defined?('Loader')
 		$:.unshift LIBRARY_PATH
 	end
@@ -29,6 +31,7 @@ self.send(:include, Livecode::Extensions::Main)
 	extensions/numeric
 	extensions/object
 	extensions/string
+	midi
 	silenceable
 	timer
 }.each{|l| live_require "livecode/#{l}"}

@@ -1,5 +1,8 @@
 require File.dirname(__FILE__) + '/../../../ext/coremidi.bundle'
 
+# Based on rbcoremidi by Markus Prinz
+# http://github.com/cypher/rbcoremidi
+
 module Livecode
 	module MIDI
 		module CoreMIDI
@@ -65,6 +68,14 @@ module Livecode
 						end
 						sleep 0.0001
 					end
+				end
+			end
+
+			class Destination
+				def self.register(client_name, destination_name)
+					raise "name must be a String!" unless client_name.class == String
+					client = API.create_client(client_name) 
+					destination = API.create_destination(client, destination_name)
 				end
 			end
 
