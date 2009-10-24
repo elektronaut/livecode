@@ -45,13 +45,13 @@ module Livecode
 	# recipient must have a unique name, and there's a few ways to attach them.
 	# The following examples all do the same:
 	#
-	#   clock.recipients.add(:hihat, proc{|c| hihat.play})
-	#   clock.recipients[:hihat] = proc{|c| hihat.play})
-	#   clock.recipients.hihat = proc{|c| hihat.play}
-	#   clock.recipients.hihat{|c| hihat.play}
-	#   clock[:hihat] = proc{|c| hihat.play}
-	#   clock.hihat = proc{|c| hihat.play}
-	#   clock.hihat{|c| hihat.play}
+	#   clock.recipients.add(:hihat, proc{|clock| hihat.play})
+	#   clock.recipients[:hihat] = proc{|clock| hihat.play})
+	#   clock.recipients.hihat = proc{|clock| hihat.play}
+	#   clock.recipients.hihat{|clock| hihat.play}
+	#   clock[:hihat] = proc{|clock| hihat.play}
+	#   clock.hihat = proc{|clock| hihat.play}
+	#   clock.hihat{|clock| hihat.play}
 	#
 	# To remove a recipient, simply unset it:
 	#
